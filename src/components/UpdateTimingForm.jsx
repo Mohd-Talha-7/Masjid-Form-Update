@@ -19,7 +19,6 @@ const UpdateTimingForm = () => {
     isha: "",
     juma: "",
     eventName: "",
-    eventTime: "",
   });
 
   const handleChange = (e) => {
@@ -59,7 +58,6 @@ const UpdateTimingForm = () => {
         isha: "",
         juma: "",
         eventName: "",
-        eventTime: "",
       });
     } else {
       alert("Update failed. Please check Masjid Name");
@@ -67,11 +65,44 @@ const UpdateTimingForm = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 700, mx: "auto", mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
-        <Typography variant="h5" mb={3} align="center" fontWeight="bold">
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundImage: `url('/Masjid.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 2,
+      }}
+    >
+      <Paper
+        elevation={6}
+        sx={{
+          p: 4,
+          borderRadius: 5,
+          maxWidth: 800,
+          width: "100%",
+          backdropFilter: "blur(15px)",
+          background: "rgba(255, 255, 255, 0.15)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+        }}
+      >
+        <Typography
+          variant="h4"
+          mb={4}
+          align="center"
+          fontWeight="bold"
+          sx={{
+            color: "#1b1b1b",
+            textShadow: "1px 1px 1px rgba(255,255,255,0.4)",
+          }}
+        >
           ✏️ Update Masjid Timings
         </Typography>
+
         <form onSubmit={handleUpdate}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -82,6 +113,7 @@ const UpdateTimingForm = () => {
                 fullWidth
                 value={formData.masjidName}
                 onChange={handleChange}
+                sx={textFieldStyles}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -92,6 +124,7 @@ const UpdateTimingForm = () => {
                 fullWidth
                 value={formData.location}
                 onChange={handleChange}
+                sx={textFieldStyles}
               />
             </Grid>
 
@@ -102,49 +135,55 @@ const UpdateTimingForm = () => {
                   label={`${namaz.charAt(0).toUpperCase() + namaz.slice(1)} Time`}
                   name={namaz}
                   type="time"
-                  required
                   fullWidth
+                  required
                   value={formData[namaz]}
                   onChange={handleChange}
                   InputLabelProps={{ shrink: true }}
-                  helperText="Leave blank to skip update"
+                  sx={textFieldStyles}
                 />
               </Grid>
             ))}
 
-            {/* Event Details */}
-            <Grid item xs={12} sm={6}>
+            {/* Event Name */}
+            <Grid item xs={12}>
               <TextField
-                label="Event Name"
+                label="Event"
                 name="eventName"
                 fullWidth
                 required
+                multiline
+                minRows={3}
                 value={formData.eventName}
                 onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Event Time"
-                name="eventTime"
-                type="time"
-                fullWidth
-                required
-                InputLabelProps={{ shrink: true }}
-                value={formData.eventTime}
-                onChange={handleChange}
+                sx={textFieldStyles}
               />
             </Grid>
 
+            {/* Submit Button */}
             <Grid item xs={12}>
               <Button
                 variant="contained"
-                color="secondary"
                 type="submit"
                 fullWidth
-                sx={{ mt: 2 }}
+                sx={{
+                  mt: 2,
+                  background:
+                    "linear-gradient(135deg, #43cea2 0%, #185a9d 100%)",
+                  color: "#fff",
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  textTransform: "none",
+                  py: 1.5,
+                  borderRadius: 3,
+                  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(135deg, #2bc0e4 0%, #eaecc6 100%)",
+                  },
+                }}
               >
-                Update Timings
+                🔄 Update Timings
               </Button>
             </Grid>
           </Grid>
@@ -152,6 +191,19 @@ const UpdateTimingForm = () => {
       </Paper>
     </Box>
   );
+};
+
+const textFieldStyles = {
+  "& .MuiInputBase-root": {
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderRadius: "8px",
+  },
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: "rgba(0,0,0,0.1)",
+  },
+  "& label": {
+    fontWeight: 500,
+  },
 };
 
 export default UpdateTimingForm;
